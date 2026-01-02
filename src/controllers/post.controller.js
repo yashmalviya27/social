@@ -9,7 +9,7 @@ async function createPost(req, res) {
     const base64Image = new Buffer.from(file.buffer).toString('base64');
 
     const caption = await generateContent(base64Image);
-    console.log(caption);
+    res.status(201).json({ caption });
    
 }
 

@@ -2,7 +2,7 @@ const { GoogleGenAI } = require("@google/genai");
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({
-    apiKey: "AIzaSyCPP0BpHnWhj5ggsvJ_Uq9gx4F01nLwgEw",
+    apiKey: "AIzaSyB-g8OyeYOJaX05OAZ-aPSWfOpqnWJS57I",
 });
 
 async function main() {
@@ -30,7 +30,7 @@ async function generateContent(imageBase64) {
         model: "gemini-2.5-flash",
         contents: contents,
         config:{
-            systemInstruction: "Generate a short, meaningful social media caption (max 15 words).",
+            systemInstruction: "your are an expert image captioning assistant that generates captions for images. single line captions only.",
         }
     });
     return response.text;
