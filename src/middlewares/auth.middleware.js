@@ -12,7 +12,7 @@ async function authUser(req, res, next) {
         req.user = user;
         next();
     } catch (error) {
-        res.status(401).json({ message: "Unauthorized" });
+        res.status(401).json({ message: "Unauthorized"  , error });
     }
 }
 

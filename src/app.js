@@ -1,5 +1,6 @@
 const express = require('express');
 const authRoutes = require('./routes/auth.route');
+const postRoutes = require('./routes/post.route');
 const cookieParser = require('cookie-parser');
 
 
@@ -10,6 +11,7 @@ app.use(cookieParser());
 
 
 app.use('/social/auth', authRoutes);
+app.use('/social/posts',postRoutes);
 
 
 
