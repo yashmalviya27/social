@@ -10,7 +10,7 @@ async function upload(file) {
   return new Promise((resolve, reject) => {
     imagekit.upload(
       {
-        file: file.buffer,           // buffer from multer
+        file: file.buffer,    
         fileName: file.originalname,
         folder: "posts",
       },
