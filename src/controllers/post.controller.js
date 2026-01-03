@@ -1,28 +1,48 @@
 const Post = require("../models/post.model");
-const { generateContent } = require("../services/ai.service");
+const { upload } = require("../services/image.service");
+// const { generateContent } = require("../services/ai.service");
 
+
+// async function createPost(req, res) {
+// const file = req.file;
+// console.log(file);
+
+// const base64Image = new Buffer.from(file.buffer).toString('base64');
+
+// const caption = await generateContent(base64Image);
+// res.status(201).json({ caption });
+
+// }
 
 async function createPost(req, res) {
-    const {content , caption , user} = req.body;
-    const file = req.file;
-    const userId = req.user.id;
     try {
-        const base64Image = new Buffer.from(file.buffer).toString('base64');
-        const cap = await generateContent(base64Image);
-        const newPPost = await Post.create({
-            content,
-            caption: cap,
-            user: userId
-        })
+        if (!req.file) {
+            return res.status(400).json({ message: "Image is required" });
+        }
 
-      res.status(201).json({ message: "Post created successfully", newPPost });
+        const { caption } = req.body;
 
-        
+        const uploadedImage = await upload(req.file);
+
+        const post = await Post.create({
+            image: uploadedImage.url,
+            caption: caption || "",
+            userId: req.user._id,
+        });
+
+        res.status(201).json({
+            message: "Post created successfully",
+            post,
+        });
+
     } catch (error) {
-        res.status(500).json({ error: "Failed to create post", details: error.message });
+        res.status(500).json({
+            message: "Internal server error",
+            error: error.message,
+        });
     }
-
 }
+
 
 module.exports = {
     createPost
