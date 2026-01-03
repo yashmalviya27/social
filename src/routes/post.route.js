@@ -8,6 +8,8 @@ const upload = multer(storage = multer.memoryStorage());
 
 
 router.post('/create', authUser, upload.single('image'), postController.createPost)
+router.get('/all', authUser, postController.getAllPosts)
+router.put('/update/:postId', authUser, postController.editPPost)
 
 
 module.exports = router;
